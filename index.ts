@@ -32,31 +32,36 @@ notion.databases.query({
 		let isbn = result["properties"].ISBN.title[0].plain_text;
 		fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`).then(info => {
 			info.json().then(json => {
-				let title = json.items[0].volumeInfo.title;
-				let author = json.items[0].volumeInfo.authors.toString();
-				notion.pages.update({
-					page_id: page_id,
-					properties: {
-						"Title": {
-							rich_text: [
-								{
-									text: {
-										content: title
+				try {
+					let title = json.items[0].volumeInfo.title;
+					let author = json.items[0].volumeInfo.authors.toString();
+					notion.pages.update({
+						page_id: page_id,
+						properties: {
+							"Title": {
+								rich_text: [
+									{
+										text: {
+											content: title
+										}
 									}
-								}
-							]
-						},
-						"Author": {
-							rich_text: [
-								{
-									text: {
-										content: author
+								]
+							},
+							"Author": {
+								rich_text: [
+									{
+										text: {
+											content: author
+										}
 									}
-								}
-							]
+								]
+							}
 						}
-					}
-				});
+					});
+				} catch (e) {
+					console.log(isbn);
+					console.log(e);
+				}
 			});
 		})
 	})
