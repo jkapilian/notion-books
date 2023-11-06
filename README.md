@@ -19,3 +19,5 @@ Feel free to change the timing as best suits individual needs. After setting up 
 * Run `cdk deploy` to deploy the infrastructure to your account
 ## Shell Scripts
 Instead of running these scripts indivudally, `build.sh` and `deploy.sh` can be used to build and deploy your application, respectively, assuming all dependencies are set up correctly.
+## Note
+The resources deployed to AWS may not all fall within the Free Tier. Make sure to verify the cost of any resources deployed including bootstrap resources before running.
